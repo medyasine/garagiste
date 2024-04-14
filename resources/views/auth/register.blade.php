@@ -1,5 +1,4 @@
 @extends('layouts.auth-master')
-
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -54,14 +53,14 @@
                                     @csrf
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="frist_name">First Name</label>
-                                            <input id="frist_name" type="text" class="form-control" name="fristName" value="{{ old('firstName') }}" placeholder="First Name" required="required" autofocus>
+                                            <label for="fristName">First Name</label>
+                                            <input id="fristName" type="text" class="form-control" name="fristName" value="{{ old('firstName') }}" placeholder="First Name" required="required" autofocus>
                                             @if ($errors->has('firstName'))
                                             <span class="text-danger text-left">{{ $errors->first('firstName') }}</span>
                                             @endif
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="last_name">Last Name</label>
+                                            <label for="lastName">Last Name</label>
                                             <input id="last_name" type="text" class="form-control" name="lastName" value="{{ old('lastName') }}" placeholder="Last Name" required="required">
                                             @if ($errors->has('lastName'))
                                             <span class="text-danger text-left">{{ $errors->first('lastName') }}</span>
@@ -77,7 +76,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">Username</label>
+                                        <label for="username">Username</label>
                                         <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="enter your username" required="required">
                                         @if ($errors->has('username'))
                                         <span class="text-danger text-left">{{ $errors->first('username') }}</span>
@@ -93,7 +92,7 @@
                                             @endif
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="password2" class="d-block">Password Confirmation</label>
+                                            <label for="password_confirmation" class="d-block">Password Confirmation</label>
                                             <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation')}}" placeholder="password confirmation" required="required">
                                             @if ($errors->has('password_confirmation'))
                                             <span class="text-danger text-left">{{ $errors->first('password_confirmation') }}</span>

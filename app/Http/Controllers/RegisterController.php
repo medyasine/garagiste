@@ -9,14 +9,15 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    
-    public function show(){
+
+    public function show()
+    {
         return view('auth.register');
     }
 
-    public function register(RegisterRequest $request){
+    public function register(RegisterRequest $request)
+    {
 
-        // Validate the form data
         $validatedData = $request->validate([
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
@@ -25,18 +26,24 @@ class RegisterController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'adress' => 'nullable|string|max:255',
             'numeroTelephone' => 'nullable|string|max:20',
-            'agree' => 'accepted',
         ]);
-        $user = new User();
-        $user->firstName = $validatedData['firstName'];
-        $user->lastName = $validatedData['lastName'];
-        $user->email = $validatedData['email'];
-        $user->username = $validatedData['username'];
-        $user->password = bcrypt($validatedData['password']);
-        $user->adress = $validatedData['adress'];
-        $user->numeroTelephone = $validatedData['numeroTelephone'];
+
+        $user = new User([
+            'firstName' => $validatedData['firstName'],
+            'lastName' => $validatedData['lastName'],
+            'email' => $validatedData['email'],
+            'username' => $validatedData['username'],
+            'password' => bcrypt($validatedData['password']),
+            'adress' => $validatedData['adress'],
+            'numeroTelephone' => $validatedData['numeroTelephone'],
+            'isClt' => true,
+            'isMecan' => false,
+            'isAdmin' => false,
+        ]);
+
         $user->save();
         auth()->login($user);
-        redirect('/')->with('success', "Account successfully registered.");
+
+        return redirect('login')->with('success', "Account successfully registered.now login");
     }
 }
