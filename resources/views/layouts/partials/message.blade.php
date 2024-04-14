@@ -1,4 +1,4 @@
-@if(isset($errors) && count($errors) > 0)
+@if(isset ($errors) && count($errors) > 0)
 <div class="alert alert-warning" role="alert">
     <ul class="list-unstyled mb-0">
         @foreach($errors->all() as $error)
@@ -8,9 +8,13 @@
 </div>
 @endif
 
-@if($success = Session::get('success'))
-@if (is_array($success))
-@foreach ($success as $msg)
+@if(Session::get('success', false))
+<?php
+
+
+ $data = Session::get('success'); ?>
+@if (is_array($data))
+@foreach ($data as $msg)
 <div class="alert alert-warning" role="alert">
     <i class="fa fa-check"></i>
     {{ $msg }}
@@ -19,7 +23,7 @@
 @else
 <div class="alert alert-warning" role="alert">
     <i class="fa fa-check"></i>
-    {{ $success }}
+    {{ $data }}
 </div>
 @endif
 @endif

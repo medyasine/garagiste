@@ -19,10 +19,6 @@ class Repair extends Model
         'vehicleID '
 
     ];
-    public function mechanic()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function vehicle()
     {
@@ -33,4 +29,13 @@ class Repair extends Model
     {
         return $this->hasOne(Invoice::class);
     }
+    public function spareParts()
+    {
+        return $this->belongsToMany(SparePart::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

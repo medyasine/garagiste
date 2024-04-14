@@ -13,6 +13,7 @@ class Invoice extends Model
         'additionalCharges',
         'totalAmount',
     ];
+
     public function repair()
     {
         return $this->belongsTo(Repair::class);

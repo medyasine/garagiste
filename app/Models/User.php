@@ -6,10 +6,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -22,26 +23,14 @@ class User extends Authenticatable
         'email',
         'username',
         'password',
-        'address',
-        'phoneNumber',
+        'address', 
+        'numeroTelephone',
         'isClt',
         'isMecan',
         'isAdmine'
+
     ];
 
-    public function vehicles()
-    {
-        return $this->hasMany(Vehicle::class);
-    }
-
-    public function repairs()
-    {
-        return $this->hasMany(Repair::class);
-    }
-
-    public function invoices(){
-        return $this->hasMany(Invoice::class);
-    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -53,19 +42,36 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function vehicles()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Vehicle::class);
     }
+
+    public function repairs()
+    {
+        return $this->hasMany(Repair::class);
+    }
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+    /**
+     * Always encrypt the password when it is updated.
+     *
+     * @param $value
+     * @return string
+     */
     public function setPasswordAttribute($value)
     {
-        $this->attribute['password'] = bcrypt($value);
+        $this->attributes['password'] = bcrypt($value);
     }
+
 }
